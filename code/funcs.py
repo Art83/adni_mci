@@ -4,16 +4,17 @@ from sklearn.metrics import confusion_matrix, roc_auc_score, recall_score,precis
 import numpy as np
 
 
-def prprc(df):
-  poly = PolynomialFeatures(degree=2, interaction_only=False, include_bias=False)
-  poly_features = poly.fit_transform(df[['age', 'LDELTOTAL', 'LIMMTOTAL']])
-
-  # Convert the poly_features array to a DataFrame
-  poly_features_df = pd.DataFrame(poly_features, columns=poly.get_feature_names_out(['age', 'LDELTOTAL', 'LIMMTOTAL']), index=df.index)
-  poly_features_df.drop(['age', 'age^2', 'LDELTOTAL', 'LIMMTOTAL'], axis=1, inplace=True)
-  # Concatenate the new polynomial features with the original DataFrame
-  df = pd.concat([df, poly_features_df], axis=1)
-  return df
+def preproc_df(df):
+    df['apoe'] = df['apoe'].replace({1: 0, 2: 0, 3: 1, 4: 1})
+    df['pp'] = df['VSBPSYS'] - df['VSBPDIA']
+    df['map'] = df['VSBPDIA'] + 1/3 * df['pp']
+    df['ratio'] = df['VSBPSYS']/df['VSBPDIA']
+    df['app'] = df['pp'] * df['VSPULSE']
+    df['ppr'] = df['VSPULSE'] /  df['pp']
+    df['hsi'] = (df['VSPULSE'] * df['map']) / df['VSBPSYS']
+    df.drop('RID', axis=1, inplace=True)
+    df.drop('age', axis=1, inplace=True)
+    return df
 
 def metrics_merged(y_test, predictions, predictions_proba):
   conf_matrix = confusion_matrix(y_test, predictions)
@@ -33,23 +34,16 @@ def metrics_merged(y_test, predictions, predictions_proba):
       fn = conf_matrix[i].sum() - conf_matrix[i, i]  # False Negatives
       tp = conf_matrix[i, i]  # True Positives
     
-    # Calculating Specificity
       specificity = tn / (tn + fp) if (tn + fp) > 0 else 0
     
-    # Calculating NPV
       npv = tn / (tn + fn) if (tn + fn) > 0 else 0
 
-    # calculating PPV/precision
       prec = tp / (tp + fp)
     
-    # Calculating Recall (Sensitivity)
       recall = tp / (tp + fn) if (tp + fn) > 0 else 0
     
-    # AUC for the current class (using predicted probabilities)
-    # Make sure predictions_prob contains probability estimates for all classes
       auc_n = roc_auc_score((y_test == i).astype(int), predictions_proba[:, i]) if len(np.unique(y_test)) > 1 else np.nan
 
-    # Append results to lists
       specificity_scores.append(specificity)
       npv_scores.append(npv)
       prec_scores.append(prec)
@@ -72,22 +66,16 @@ def metrics_binary(y_test, predictions, predictions_proba):
     conf_matrix = confusion_matrix(y_test, predictions)
     tn, fp, fn, tp = conf_matrix.ravel()
     
-    # Specificity
     specificity = tn / (tn + fp) if (tn + fp) > 0 else 0
     
-    # Negative Predictive Value (NPV)
     npv = tn / (tn + fn) if (tn + fn) > 0 else 0
     
-    # Precision (Positive Predictive Value)
     precision = precision_score(y_test, predictions)
     
-    # Recall (Sensitivity)
     recall = recall_score(y_test, predictions)
     
-    # AUC (using probability for the positive class)
     auc = roc_auc_score(y_test, predictions_proba[:, 1]) if len(np.unique(y_test)) > 1 else np.nan
     
-    # Create a DataFrame to store results
     metrics_df = pd.DataFrame({
         'Metric': ['Recall', 'Precision', 'Specificity', 'NPV', 'AUC'],
         'Score': [recall, precision, specificity, npv, auc]

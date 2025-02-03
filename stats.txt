@@ -1,0 +1,75 @@
+HMT8
+Kruskal-Wallis chi-squared = 43.594, df = 2, p-value = 3.417e-10
+
+                Comparison         Z      P.unadj        P.adj
+1     MCI_AD - MCI_Healthy  5.394723 6.862921e-08 1.372584e-07
+2      MCI_AD - MCI_Middle -2.655939 7.908794e-03 7.908794e-03
+3 MCI_Healthy - MCI_Middle -6.541220 6.101885e-11 1.830565e-10
+
+
+HMT15
+Kruskal-Wallis chi-squared = 92.167, df = 2, p-value < 2.2e-16
+
+                Comparison         Z      P.unadj        P.adj
+1     MCI_AD - MCI_Healthy  9.087836 1.010297e-19 3.030890e-19
+2      MCI_AD - MCI_Middle -1.222679 2.214509e-01 2.214509e-01   <- Not significant!
+3 MCI_Healthy - MCI_Middle -8.755251 2.036498e-18 4.072997e-18
+
+HMT16
+Kruskal-Wallis chi-squared = 91.838, df = 2, p-value < 2.2e-16
+
+                Comparison         Z      P.unadj        P.adj
+1     MCI_AD - MCI_Healthy -9.087795 1.010683e-19 3.032049e-19
+2      MCI_AD - MCI_Middle  1.170376 2.418498e-01 2.418498e-01  <- Not significant!
+3 MCI_Healthy - MCI_Middle  8.718797 2.811742e-18 5.623484e-18
+
+LDELTOTAL
+Kruskal-Wallis chi-squared = 42.178, df = 2, p-value = 6.935e-10
+
+                Comparison         Z      P.unadj        P.adj
+1     MCI_AD - MCI_Healthy -6.479024 9.231763e-11 2.769529e-10
+2      MCI_AD - MCI_Middle -1.729517 8.371658e-02 8.371658e-02 <- Not significant!
+3 MCI_Healthy - MCI_Middle  4.430726 9.391626e-06 1.878325e-05
+
+LIMMTOTAL
+Kruskal-Wallis chi-squared = 37.334, df = 2, p-value = 7.816e-09
+
+
+                Comparison          Z      P.unadj        P.adj
+1     MCI_AD - MCI_Healthy -6.0950155 1.094269e-09 3.282806e-09
+2      MCI_AD - MCI_Middle -0.7925719 4.280273e-01 4.280273e-01 <- Not significant!
+3 MCI_Healthy - MCI_Middle  4.7491274 2.042963e-06 4.085925e-06
+
+
+VSPULSE
+
+Kruskal-Wallis chi-squared = 196.18, df = 2, p-value < 2.2e-16
+
+                Comparison          Z      P.unadj        P.adj
+1     MCI_AD - MCI_Healthy  -2.822273 4.768458e-03 4.768458e-03
+2      MCI_AD - MCI_Middle -14.006522 1.422000e-44 4.266000e-44
+3 MCI_Healthy - MCI_Middle  -7.297963 2.921564e-13 5.843129e-13
+
+-----CATEGORICAL-----
+apoe
+X-squared = 23.271, df = 2, p-value = 8.846e-06
+
+MCI_Healthy vs MCI_Middle     MCI_Healthy vs MCI_AD      MCI_Middle vs MCI_AD 
+  3.710193, 1.622434e-01       18.822708, 4.303471e-05     6.581127, 3.091968e-02 
+
+
+GDMEMORY
+X-squared = 27.068, df = 2, p-value = 1.325e-06
+
+MCI_Healthy vs MCI_Middle     MCI_Healthy vs MCI_AD      MCI_Middle vs MCI_AD 
+ 14.6970175, 3.787381e-04     25.5667059, 1.282050e-06     0.5438807 , 1.000000e+00
+
+
+
+
+-------PROGRESSORS---------
+X-squared = 39.179, df = 4, p-value = 6.397e-08
+
+MCI_Healthy vs MCI_Middle     MCI_Healthy vs MCI_AD      MCI_Middle vs MCI_AD 
+  13.29386,3.894010e-03        36.48272,3.589221e-08      4.55935,3.069524e-01 
+ 
